@@ -13,3 +13,15 @@ services:
     project: ./src/api
     language: py
     host: appservice
+hooks:
+  postprovision:
+    windows:
+      run: Write-Output "$env:SERVICE_WEB_ENDPOINT / $env:SERVICE_API_ENDPOINT"
+      shell: pwsh
+      continueOnError: false
+      interactive: true
+    posix:
+      run: echo $SERVICE_WEB_ENDPOINT / $SERVICE_API_ENDPOINT
+      shell: sh
+      continueOnError: false
+      interactive: true
